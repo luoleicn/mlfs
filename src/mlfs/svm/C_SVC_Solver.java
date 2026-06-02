@@ -19,6 +19,6 @@ public class C_SVC_Solver {
 	
 	public SVMModel solve()
 	{
-		return null;
+		throw new UnsupportedOperationException("C_SVC solver is not implemented yet.");
 	}
 }

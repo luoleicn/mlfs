@@ -78,6 +78,7 @@ public class LBFGS
 
 	public static class ExceptionWithIflag extends Exception
 	{
+		private static final long serialVersionUID = 1L;
 		public int iflag;
 		public ExceptionWithIflag( int i, String s ) { super(s); iflag = i; }
 		@Override

@@ -35,7 +35,7 @@ public class Test {
 
 	public static void usage()
 	{
-		System.out.println("java -jar crfTester [options] modelfile testfile outputFile");
+		System.out.println("java -cp <classpath> mlfs.crf.main.Test [options] modelfile testfile outputFile");
 		System.out.println("options:");
 		System.out.println("-n, -n=INT, get n-best results");
 	}
@@ -53,7 +53,16 @@ public class Test {
 			if (args[argsPos].equals("-n"))
 			{
 				argsPos++;
+				if (argsPos >= args.length)
+				{
+					usage();
+					System.exit(-1);
+				}
 				nbest = Integer.parseInt(args[argsPos]);
+			}
+			else if (args[argsPos].startsWith("-n="))
+			{
+				nbest = Integer.parseInt(args[argsPos].substring(3));
 			}
 			else if (modelFile == null)
 				modelFile = args[argsPos];
@@ -78,28 +87,29 @@ public class Test {
 		CorpusReader corpus = new CorpusReader(testFile, model);
 		List<CRFEvent> events = corpus.getAllTestEvents();
 		
-		PrintWriter out = new PrintWriter(new File(outFile));
-		for (CRFEvent e : events)
+		try (PrintWriter out = new PrintWriter(new File(outFile)))
 		{
-			if (nbest == 1)
+			for (CRFEvent e : events)
 			{
-				List<String> labels = model.label(e);
-				StringBuilder sb = new StringBuilder();
-				for (int i=0; i<labels.size(); i++)
-					sb.append(labels.get(i)).append(' ');
-				out.println(sb.toString());
-			}
-			else //nbest>1
-			{
-				List<Path> paths = model.getNBest(e, nbest);
-				for (Path path : paths)
+				if (nbest == 1)
 				{
-					out.println(path.toString());
+					List<String> labels = model.label(e);
+					StringBuilder sb = new StringBuilder();
+					for (int i=0; i<labels.size(); i++)
+						sb.append(labels.get(i)).append(' ');
+					out.println(sb.toString());
 				}
-				out.println();
+				else //nbest>1
+				{
+					List<Path> paths = model.getNBest(e, nbest);
+					for (Path path : paths)
+					{
+						out.println(path.toString());
+					}
+					out.println();
+				}
 			}
 		}
-		out.close();
 		System.out.println("Done!");
 	}
 }

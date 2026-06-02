@@ -14,11 +14,17 @@ import mlfs.crf.model.CRFModel;
 
 public class Train {
 
+	private static void usage()
+	{
+		System.out.println("java -cp <classpath> mlfs.chineseSeg.main.Train templatefile trainfile model");
+	}
+
 	public static void main(String[] args) throws IOException
 	{
 		if (args.length != 3)
 		{
-			System.out.println("java -jar crf.jar templatefile trainfile model ");
+			usage();
+			System.exit(-1);
 		}
 		String templateFile = args[0];
 		String trainFile = args[1];

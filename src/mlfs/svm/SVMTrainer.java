@@ -26,11 +26,10 @@ public class SVMTrainer {
 	
 	public SVMModel train()
 	{
-		SVMModel model = null;
 		if (m_svmType == SVM_TYPE.C_SVC)
-			;
-		
-		return model;
+			return new C_SVC_Solver(m_events, m_kernelType).solve();
+
+		throw new UnsupportedOperationException("Unsupported SVM type: " + m_svmType);
 	}
 	
 }

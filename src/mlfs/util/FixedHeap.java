@@ -73,6 +73,7 @@ public class FixedHeap<T extends Comparable<T>> {
 	 *
 	 * @param t the t
 	 */
+	@SuppressWarnings("unchecked")
 	public void add(T t)
 	{
 		if (m_size == m_capacity)
@@ -178,6 +179,7 @@ public class FixedHeap<T extends Comparable<T>> {
 		return 0;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<T> asList()
 	{
 		List<T> ret = new ArrayList<T>();
