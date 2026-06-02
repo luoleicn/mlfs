@@ -12,7 +12,7 @@
 - 基础矩阵分解推荐（SVD / MovieLens）
 - 若干通用数值优化与核函数代码
 
-项目原始说明位于 [src/readMe.txt](/private/tmp/mlfs/src/readMe.txt:1)，代码整体采用 GPL 思路发布；如需正式分发，建议你再补充标准 `LICENSE` 文件。
+项目原始说明位于 [src/readMe.txt](/private/tmp/mlfs/src/readMe.txt:1)。仓库现已补充标准 [LICENSE](/private/tmp/mlfs/LICENSE:1) 文件，主许可证按代码头注释采用 `GPL-3.0-or-later`。
 
 ## 目录结构
 
@@ -49,6 +49,23 @@ javac -encoding UTF-8 -d out $(find src -name '*.java')
 ```
 
 编译后可通过 `java -cp out <MainClass>` 运行各模块入口。
+
+## Maven
+
+仓库现已补充最小可用的 [pom.xml](/private/tmp/mlfs/pom.xml:1)，适配当前非标准目录结构（源码位于 `src/`）。
+
+常用命令：
+
+```bash
+mvn compile
+mvn package
+```
+
+如需在本地清理产物：
+
+```bash
+mvn clean
+```
 
 ## 已附带的示例数据
 
